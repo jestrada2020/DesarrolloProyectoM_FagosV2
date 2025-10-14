@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación de la Inteligencia Artificial - Curso Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        /* Sidebar Menu */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 0 20px 30px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(52, 152, 219, 0.2);
+            border-left-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .menu-item i {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 320px;
+            padding: 30px 40px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .section-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .card h4 {
+            color: #34495e;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Matryoshka Visual */
+        .hierarchy-visual {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .hierarchy-stacks {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hierarchy-block {
+            position: relative;
+            border-radius: 16px;
+            padding: 22px 26px;
+            color: #ffffff;
+            min-width: 320px;
+            box-shadow: 0 15px 30px rgba(47, 72, 88, 0.25);
+        }
+
+        .hierarchy-block::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            border-radius: 50px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.35);
+            width: 80px;
+        }
+
+        .block-ia {
+            background: linear-gradient(135deg, #93329e, #5c258d);
+        }
+
+        .block-ml {
+            background: linear-gradient(135deg, #ffb347, #ffcc33);
+            color: #2c3e50;
+        }
+
+        .block-dl {
+            background: linear-gradient(135deg, #56ccf2, #2f80ed);
+        }
+
+        .block-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .block-subtitle {
+            font-size: 0.95em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .block-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.75em;
+            margin-top: 12px;
+        }
+
+        .hierarchy-legend {
+            display: grid;
+            gap: 18px;
+            max-width: 420px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            border-radius: 14px;
+            background: rgba(52, 152, 219, 0.12);
+            border-left: 5px solid #3498db;
+        }
+
+        .legend-icon {
+            font-size: 1.6em;
+        }
+
+        .legend-item h4 {
+            margin-bottom: 6px;
+            color: #2c3e50;
+        }
+
+        .legend-item p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #34495e;
+        }
+
+        /* Learning Types Grid */
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .learning-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .learning-card:hover {
+            transform: perspective(1000px) rotateX(-10deg) translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .learning-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .learning-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e8f4fd;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 80px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 22px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #3498db;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timestamp {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 12, 41, 0.75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: white;
+            border-radius: 18px;
+            max-width: 960px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(44, 62, 80, 0.35);
+            padding: 30px 32px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #e74c3c;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.35);
+        }
+
+        .modal-close:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 12px 24px rgba(118, 75, 162, 0.35);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 32px rgba(118, 75, 162, 0.45);
+        }
+
+        /* Code Examples */
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-example::before {
+            content: 'Ejemplo Conceptual';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        /* Examples Grid */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: linear-gradient(135deg, #16a085 0%, #f4d03f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .example-card h5 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .matryoshka-container {
+                flex-direction: column;
+            }
+
+            .ai-doll, .ml-doll, .dl-doll {
+                position: static;
+                margin: 10px 0;
+            }
+
+            .learning-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #3498db;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 0.8s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .demo-button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <!-- Sidebar Menu -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🤖 IA Academy</h1>
+                <p>Clasificación de la Inteligencia Artificial</p>
+            </div>
+            
+            <a href="#" class="menu-item active" onclick="showSection('home')">
+                <i>🏠</i> Inicio
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('hierarchy')">
+                <i>🪆</i> Jerarquía IA → ML → DL
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('generative')">
+                <i>🎨</i> IA Generativa y LLMs
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('learning-types')">
+                <i>📚</i> Tipos de Aprendizaje
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('supervised')">
+                <i>🏷️</i> Aprendizaje Supervisado
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('unsupervised')">
+                <i>🔍</i> Aprendizaje No Supervisado
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('reinforcement')">
+                <i>🎮</i> Aprendizaje por Refuerzo
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('comparison')">
+                <i>📊</i> Tabla Comparativa
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('examples')">
+                <i>💡</i> Ejemplos Prácticos
+            </a>
+            <a href="#" class="menu-item" onclick="showSection('resources')">
+                <i>📖</i> Recursos Adicionales
+            </a>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <div id="home" class="content-section active">
+                <div class="section-header">
+                    <h2>Clasificación de la Inteligencia Artificial</h2>
+                    <p>Relaciones entre IA, Machine Learning, Deep Learning y IA Generativa</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Objetivos:</h3>
+                    <p>Al finalizar el recorrido temático podrás:</p>
+                    <ul style="margin: 15px 0 0 20px; line-height: 1.8;">
+                        <li>Distinguir claramente entre <span class="highlight">IA, ML y Deep Learning</span></li>
+                        <li>Comprender las <span class="highlight">relaciones jerárquicas</span> entre estos conceptos</li>
+                        <li>Definir <span class="highlight">IA Generativa y LLMs</span> y ubicarlos en el ecosistema IA</li>
+                        <li>Identificar y explicar los <span class="highlight">3 paradigmas</span> de aprendizaje automático</li>
+                        <li>Describir los mecanismos fundamentales de cada tipo de aprendizaje</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Contenido temático</h3>
+                    <p><strong>Fuente:</strong> <a href="https://www.youtube.com/watch?v=5DDBnsHA61U" target="_blank" style="color: #3498db;">YouTube - Clasificación de IA</a></p>
+                    <p><strong>Duración:</strong> 7:00 minutos</p>
+                    <p><strong>Conceptos clave:</strong> Analogía de Matryoshkas, 3 tipos de aprendizaje, ejemplos prácticos</p>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🚀 Demo Interactivo</h3>
+                    <p>Explora los conceptos de IA de forma interactiva</p>
+                    <button class="demo-button" onclick="showRandomConcept()">Concepto Aleatorio</button>
+                    <button class="demo-button" onclick="startQuiz()">Quiz Rápido</button>
+                    <div id="demo-content" style="margin-top: 20px; min-height: 50px;"></div>
+                </div>
+            </div>
+
+            <!-- Hierarchy Section -->
+            <div id="hierarchy" class="content-section">
+                <div class="section-header">
+                    <h2>🪆 Jerarquía: IA → ML → Deep Learning</h2>
+                    <p>La analogía de las Matryoshkas para entender las relaciones</p>
+                </div>
+
+                <div class="card">
+                    <h3>Visualización de la Jerarquía</h3>
+                    <div class="hierarchy-visual">
+                        <div class="hierarchy-stacks">
+                            <div class="hierarchy-block block-ia">
+                                <div class="block-title">INTELIGENCIA ARTIFICIAL</div>
+                                <div class="block-subtitle">Disciplina que abarca técnicas para crear sistemas que tomen decisiones inteligentes de forma autónoma.</div>
+                                <div class="block-badge">Cobertura más amplia</div>
+                            </div>
+                            <div class="hierarchy-block block-ml" style="margin-left: 64px;">
+                                <div class="block-title">MACHINE LEARNING</div>
+                                <div class="block-subtitle">Subconjunto de la IA que usa datos para entrenar modelos capaces de predecir o clasificar sin reglas explícitas.</div>
+                                <div class="block-badge">Aprende desde datos</div>
+                            </div>
+                            <div class="hierarchy-block block-dl" style="margin-left: 128px;">
+                                <div class="block-title">DEEP LEARNING</div>
+                                <div class="block-subtitle">Familia de algoritmos de Machine Learning basados en redes neuronales profundas que modelan patrones complejos.</div>
+                                <div class="block-badge">Redes neuronales profundas</div>
+                            </div>
+                        </div>
+                        <div class="hierarchy-legend">
+                            <div class="legend-item" style="border-left-color: #b91d73; background: rgba(185,29,115,0.12);">
+                                <div class="legend-icon">🤖</div>
+                                <div>
+                                    <h4>Inteligencia Artificial</h4>
+                                    <p>Disciplina que abarca cualquier técnica para lograr que las máquinas tomen decisiones autónomas o inteligentes.</p>
+                                </div>
+                            </div>
+                            <div class="legend-item" style="border-left-color: #f2994a; background: rgba(242,153,74,0.12);">
+                                <div class="legend-icon">🧠</div>
+                                <div>
+                                    <h4>Machine Learning</h4>
+                                    <p>Subconjunto de la IA que entrena modelos con datos estructurados o no estructurados para realizar predicciones o clasificaciones.</p>
+                                </div>
+                            </div>
+                            <div class="legend-item" style="border-left-color: #2f80ed; background: rgba(47,128,237,0.12);">
+                                <div class="legend-icon">🧬</div>
+                                <div>
+                                    <h4>Deep Learning</h4>
+                                    <p>Familia de algoritmos de Machine Learning basados en redes neuronales con múltiples capas para detectar patrones altamente complejos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🤖 Inteligencia Artificial (IA)</h3>
+                    <h4>Definición:</h4>
+                    <p>Campo amplio de las ciencias de la computación que se enfoca en crear máquinas que imiten el comportamiento inteligente humano.</p>
+                    
+                    <h4>Analogía:</h4>
+                    <p>La <strong>Matryoshka más grande</strong> - el paraguas que abarca todos los demás conceptos.</p>
+                    
+                    <h4>Ejemplos:</h4>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>🗣️ Asistentes de Voz</h5>
+                            <p>Comprenden y responden a comandos hablados</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🎮 Videojuegos</h5>
+                            <p>Personajes que reaccionan inteligentemente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🧠 Machine Learning (ML)</h3>
+                    <h4>Definición:</h4>
+                    <p>Subconjunto de la IA donde los algoritmos aprenden patrones de los datos y toman decisiones sin reglas programáticas explícitas.</p>
+                    
+                    <h4>Analogía:</h4>
+                    <p>La <strong>segunda Matryoshka</strong> dentro de la IA.</p>
+                    
+                    <h4>Ejemplo:</h4>
+                    <div class="code-example">
+# Filtro de spam aprendiendo de miles de ejemplos de emails
+emails_spam = ["Oferta increíble!!!", "Gana dinero fácil", ...]
+emails_normales = ["Reunión mañana", "Informe adjunto", ...]
+
+# El algoritmo aprende patrones sin reglas explícitas
+modelo.entrenar(emails_spam, emails_normales)
+resultado = modelo.clasificar("Nuevo email")  # ¿Spam o normal?
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🧬 Deep Learning (DL)</h3>
+                    <h4>Definición:</h4>
+                    <p>Subconjunto del ML que utiliza redes neuronales de múltiples capas. Maneja grandes cantidades de datos. Se describe como <strong>"ML con superpoderes"</strong>.</p>
+                    
+                    <h4>Analogía:</h4>
+                    <p>La <strong>Matryoshka más pequeña y compleja</strong> dentro del ML.</p>
+                    
+                    <h4>Ejemplo:</h4>
+                    <div class="code-example">
+# Reconocimiento facial procesando millones de fotos
+red_neuronal = RedesProfundas(capas=50)
+fotos_entrenamiento = cargar_millones_de_fotos()
+
+# Múltiples capas procesan características complejas
+capa1: detecta_bordes()
+capa2: reconoce_formas()
+capa3: identifica_caras()
+...
+capa50: clasifica_persona()
+
+resultado = red_neuronal.reconocer(nueva_foto)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generative AI Section -->
+            <div id="generative" class="content-section">
+                <div class="section-header">
+                    <h2>🎨 IA Generativa y Modelos de Lenguaje (LLMs)</h2>
+                    <p>La frontera creativa de la tecnología actual</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎭 IA Generativa</h3>
+                    <h4>Definición:</h4>
+                    <p>Campo de la IA enfocado en <strong>crear contenido nuevo y original</strong> (texto, imágenes, video, audio) en lugar de solo analizar o clasificar datos.</p>
+                    
+                    <h4>Capacidades:</h4>
+                    <ul style="margin: 15px 0 0 20px; line-height: 1.8;">
+                        <li>🖼️ Generar imágenes realistas</li>
+                        <li>📝 Escribir textos coherentes</li>
+                        <li>🎵 Componer música original</li>
+                        <li>🎬 Crear videos sintéticos</li>
+                        <li>💬 Mantener conversaciones naturales</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🧠 Modelos de Lenguaje Grande (LLM)</h3>
+                    <h4>Definición:</h4>
+                    <p>Modelos de IA especializados (construidos frecuentemente con Deep Learning) entrenados en <strong>datasets masivos de texto</strong> para entender, procesar y generar lenguaje similar al humano.</p>
+                    
+                    <h4>Ejemplo Principal:</h4>
+                    <div class="code-example">
+# ChatGPT como ejemplo de LLM
+usuario: "Explícame la fotosíntesis"
+
+ChatGPT: "La fotosíntesis es el proceso mediante el cual 
+las plantas convierten la luz solar, agua y dióxido de 
+carbono en glucosa y oxígeno. Este proceso ocurre en 
+los cloroplastos..."
+
+# Capacidades del LLM:
+- Comprende contexto
+- Genera respuestas coherentes
+- Mantiene conversaciones largas
+- Traduce entre idiomas
+- Escribe código, poesía, ensayos
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔗 Relación: LLMs son un ejemplo prominente de IA Generativa</h3>
+                    <p>Los LLMs representan una de las aplicaciones más exitosas y conocidas de la IA Generativa, especialmente en la generación de texto y conversación natural.</p>
+                    
+                    <div class="learning-grid">
+                        <div class="learning-card">
+                            <div class="icon">🤖</div>
+                            <h4>ChatGPT</h4>
+                            <p>Conversaciones naturales y generación de texto</p>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🎨</div>
+                            <h4>DALL-E</h4>
+                            <p>Generación de imágenes desde descripciones</p>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🎵</div>
+                            <h4>Sistemas de Música IA</h4>
+                            <p>Composición automática de melodías</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Types Section -->
+            <div id="learning-types" class="content-section">
+                <div class="section-header">
+                    <h2>📚 Tipos de Aprendizaje: ¿Cómo Aprenden las Máquinas?</h2>
+                    <p>Los tres paradigmas fundamentales del Machine Learning</p>
+                </div>
+
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <div class="icon">🏷️</div>
+                        <h4>Aprendizaje Supervisado</h4>
+                        <p><strong>Datos:</strong> Etiquetados</p>
+                        <p><strong>Objetivo:</strong> Predecir</p>
+                        <p>Los modelos aprenden de datos con respuestas conocidas para predecir resultados en datos nuevos.</p>
+                    </div>
+                    
+                    <div class="learning-card">
+                        <div class="icon">🔍</div>
+                        <h4>Aprendizaje No Supervisado</h4>
+                        <p><strong>Datos:</strong> Sin etiquetas</p>
+                        <p><strong>Objetivo:</strong> Encontrar patrones</p>
+                        <p>Como un detective, encuentra conexiones ocultas sin pistas iniciales.</p>
+                    </div>
+                    
+                    <div class="learning-card">
+                        <div class="icon">🎮</div>
+                        <h4>Aprendizaje por Refuerzo</h4>
+                        <p><strong>Datos:</strong> Interacción prueba-error</p>
+                        <p><strong>Objetivo:</strong> Obtener recompensa</p>
+                        <p>Un agente aprende a través de acciones y recompensas, como aprender un juego.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Comparación Visual de Objetivos</h3>
+                    <div class="interactive-demo">
+                        <h4>Selecciona un tipo de aprendizaje para ver su proceso:</h4>
+                        <button class="demo-button" onclick="showLearningProcess('supervised')">Supervisado</button>
+                        <button class="demo-button" onclick="showLearningProcess('unsupervised')">No Supervisado</button>
+                        <button class="demo-button" onclick="showLearningProcess('reinforcement')">Refuerzo</button>
+                        
+                        <div id="learning-process" style="margin-top: 20px;">
+                            <p>Haz clic en un botón para ver el proceso de aprendizaje</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supervised Learning Section -->
+            <div id="supervised" class="content-section">
+                <div class="section-header">
+                    <h2>🏷️ Aprendizaje Supervisado</h2>
+                    <p>Predicción basada en ejemplos etiquetados</p>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Características Principales</h3>
+                    <ul style="line-height: 1.8; margin-left: 20px;">
+                        <li><strong>Datos:</strong> Etiquetados (con respuestas conocidas)</li>
+                        <li><strong>Objetivo:</strong> Aprender a predecir resultados</li>
+                        <li><strong>Proceso:</strong> Entrenamiento con ejemplos → Predicción en datos nuevos</li>
+                        <li><strong>Evaluación:</strong> Comparar predicciones con respuestas reales</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🐱 Ejemplo Detallado: Reconocimiento de Gatos</h3>
+                    <div class="code-example">
+# Dataset de entrenamiento (datos etiquetados)
+imagenes_entrenamiento = [
+    ("gato1.jpg", "GATO"),
+    ("gato2.jpg", "GATO"),
+    ("perro1.jpg", "NO_GATO"),
+    ("perro2.jpg", "NO_GATO"),
+    # ... miles de ejemplos más
+]
+
+# Proceso de entrenamiento
+modelo = AlgoritmoSupervisionado()
+for imagen, etiqueta in imagenes_entrenamiento:
+    modelo.aprender(imagen, etiqueta)
+
+# Predicción en nueva imagen
+nueva_imagen = "animal_desconocido.jpg"
+prediccion = modelo.predecir(nueva_imagen)
+# Resultado: "GATO" con 85% de confianza
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Tipos de Problemas</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>📊 Clasificación</h5>
+                            <p>Categorizar datos en clases discretas</p>
+                            <small>Ej: Spam/No spam, Gato/Perro</small>
+                        </div>
+                        <div class="example-card">
+                            <h5>📈 Regresión</h5>
+                            <p>Predecir valores numéricos continuos</p>
+                            <small>Ej: Precio de casas, temperatura</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💡 Ejemplos Prácticos del Mundo Real</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>📧 Filtro de Spam</h5>
+                            <p>Clasificar emails como spam o legítimos basándose en miles de ejemplos previos</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🏥 Diagnóstico Médico</h5>
+                            <p>Predecir enfermedades analizando síntomas y resultados de exámenes</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>💰 Aprobación de Créditos</h5>
+                            <p>Evaluar riesgo crediticio basándose en historiales financieros</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🚗 Vehículos Autónomos</h5>
+                            <p>Reconocer señales de tráfico, peatones y obstáculos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unsupervised Learning Section -->
+            <div id="unsupervised" class="content-section">
+                <div class="section-header">
+                    <h2>🔍 Aprendizaje No Supervisado</h2>
+                    <p>Descubriendo patrones ocultos sin guías</p>
+                </div>
+
+                <div class="card">
+                    <h3>🕵️ Analogía del Detective</h3>
+                    <p>Como un <strong>detective encontrando conexiones ocultas sin pistas iniciales</strong>, el aprendizaje no supervisado busca patrones, estructuras y agrupaciones en datos sin etiquetas.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Características Principales</h3>
+                    <ul style="line-height: 1.8; margin-left: 20px;">
+                        <li><strong>Datos:</strong> Sin etiquetas (no hay respuestas conocidas)</li>
+                        <li><strong>Objetivo:</strong> Descubrir patrones ocultos y estructuras</li>
+                        <li><strong>Proceso:</strong> Análisis exploratorio → Identificación de agrupaciones</li>
+                        <li><strong>Desafío:</strong> No hay forma directa de evaluar si el resultado es "correcto"</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🛍️ Ejemplo Detallado: Segmentación de Clientes</h3>
+                    <div class="code-example">
+# Dataset sin etiquetas (comportamiento de compra)
+datos_clientes = [
+    {"edad": 25, "gasto_mensual": 500, "frecuencia_compra": 10},
+    {"edad": 45, "gasto_mensual": 1200, "frecuencia_compra": 3},
+    {"edad": 30, "gasto_mensual": 800, "frecuencia_compra": 7},
+    # ... miles de clientes más SIN categorías predefinidas
+]
+
+# Algoritmo encuentra grupos naturales
+algoritmo = ClusteringNoSupervisado()
+grupos = algoritmo.encontrar_patrones(datos_clientes)
+
+# Descubre segmentos como:
+# Grupo 1: "Jóvenes compradores frecuentes"
+# Grupo 2: "Adultos compradores premium"  
+# Grupo 3: "Compradores ocasionales"
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Técnicas Principales</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>🎯 Clustering</h5>
+                            <p>Agrupar datos similares</p>
+                            <small>Ej: Segmentos de mercado, especies</small>
+                        </div>
+                        <div class="example-card">
+                            <h5>📉 Reducción Dimensional</h5>
+                            <p>Simplificar datos complejos</p>
+                            <small>Ej: Visualización, compresión</small>
+                        </div>
+                        <div class="example-card">
+                            <h5>🔗 Reglas de Asociación</h5>
+                            <p>Encontrar relaciones entre elementos</p>
+                            <small>Ej: "Quién compra X también compra Y"</small>
+                        </div>
+                        <div class="example-card">
+                            <h5>🚨 Detección de Anomalías</h5>
+                            <p>Identificar datos inusuales</p>
+                            <small>Ej: Fraude, fallas en sistemas</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💡 Ejemplos Prácticos del Mundo Real</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>🛒 Análisis de Cesta de Compras</h5>
+                            <p>Descubrir qué productos se compran juntos frecuentemente</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🧬 Investigación Genética</h5>
+                            <p>Agrupar genes con funciones similares sin conocimiento previo</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>📱 Sistemas de Recomendación</h5>
+                            <p>Encontrar usuarios con gustos similares para sugerir contenido</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🌐 Análisis de Redes Sociales</h5>
+                            <p>Identificar comunidades y grupos de influencia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reinforcement Learning Section -->
+            <div id="reinforcement" class="content-section">
+                <div class="section-header">
+                    <h2>🎮 Aprendizaje por Refuerzo</h2>
+                    <p>Aprender a través de acciones y recompensas</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Analogía del Juego</h3>
+                    <p>Como <strong>aprender a jugar un videojuego</strong>, el agente prueba diferentes acciones, recibe retroalimentación (recompensas o castigos) y mejora su estrategia con el tiempo.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Características Principales</h3>
+                    <ul style="line-height: 1.8; margin-left: 20px;">
+                        <li><strong>Datos:</strong> Interacción prueba-error con el entorno</li>
+                        <li><strong>Objetivo:</strong> Maximizar recompensas acumuladas</li>
+                        <li><strong>Proceso:</strong> Acción → Recompensa/Castigo → Ajuste de estrategia</li>
+                        <li><strong>Característica única:</strong> Aprende de las consecuencias de sus propias acciones</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🔄 Ciclo de Aprendizaje por Refuerzo</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timestamp">Paso 1</div>
+                                <h4>🌍 Escenario (Observación)</h4>
+                                <p>El agente observa el estado actual del entorno</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timestamp">Paso 2</div>
+                                <h4>⚡ Acción</h4>
+                                <p>El agente elige y ejecuta una acción</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timestamp">Paso 3</div>
+                                <h4>🏆 Recompensa/Castigo</h4>
+                                <p>El agente recibe retroalimentación y actualiza su comportamiento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🤖 Ejemplo Detallado: IA Jugando Ajedrez</h3>
+                    <div class="code-example">
+# Agente de ajedrez aprendiendo por refuerzo
+class AgenteAjedrez:
+    def __init__(self):
+        self.estrategia = EstrategiaInicial()
+    
+    def jugar_partida(self):
+        while not juego_terminado:
+            # 1. ESCENARIO: Observar el tablero
+            estado_tablero = observar_tablero()
+            
+            # 2. ACCIÓN: Elegir movimiento
+            movimiento = self.elegir_movimiento(estado_tablero)
+            ejecutar_movimiento(movimiento)
+            
+            # 3. RECOMPENSA: Evaluar resultado
+            if gano_partida():
+                recompensa = +100
+            elif perdi_partida():
+                recompensa = -100
+            elif capture_pieza():
+                recompensa = +10
+            else:
+                recompensa = -1  # Pequeño castigo por tiempo
+            
+            # Actualizar estrategia basada en recompensa
+            self.estrategia.actualizar(estado_tablero, movimiento, recompensa)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💡 Ejemplos Prácticos del Mundo Real</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>🏆 AlphaGo/AlphaZero</h5>
+                            <p>IA que dominó Go y ajedrez jugando millones de partidas contra sí misma</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🦾 Brazos Robóticos</h5>
+                            <p>Robots aprendiendo tareas precisas como ensamblar componentes</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🚗 Vehículos Autónomos</h5>
+                            <p>Optimización de rutas y maniobras de estacionamiento</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>💹 Trading Automático</h5>
+                            <p>Algoritmos que aprenden estrategias de inversión óptimas</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🎮 NPCs Inteligentes</h5>
+                            <p>Personajes de videojuegos que se adaptan al estilo del jugador</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🌡️ Control de Sistemas</h5>
+                            <p>Optimización de HVAC, redes eléctricas y recursos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎮 Demo Interactivo: Ciclo de Refuerzo</h3>
+                    <p>Simula el proceso de aprendizaje por refuerzo</p>
+                    <button class="demo-button" onclick="simulateReinforcement()">Simular Acción</button>
+                    <div id="reinforcement-demo" style="margin-top: 20px;">
+                        <p>Haz clic en "Simular Acción" para ver el ciclo en acción</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table Section -->
+            <div id="comparison" class="content-section">
+                <div class="section-header">
+                    <h2>📊 Tabla Comparativa de Tipos de Aprendizaje</h2>
+                    <p>Comparación detallada de los tres paradigmas (Timestamp: 6:09)</p>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Vista Comparativa</h3>
+                    <p>
+                        Consulta la tabla completa en una ventana emergente optimizada para una lectura cómoda. Ideal para proyectores o
+                        pantallas grandes durante las sesiones de estudio y discusión.
+                    </p>
+                    <button class="modal-button" type="button" onclick="openComparisonModal()">Ver tabla comparativa</button>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Cuándo Usar Cada Tipo</h3>
+                    <div class="learning-grid">
+                        <div class="learning-card">
+                            <div class="icon">🏷️</div>
+                            <h4>Usa Supervisado cuando:</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>Tienes ejemplos con respuestas conocidas</li>
+                                <li>Quieres predecir resultados específicos</li>
+                                <li>Necesitas clasificar o estimar valores</li>
+                            </ul>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🔍</div>
+                            <h4>Usa No Supervisado cuando:</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>No tienes etiquetas o respuestas</li>
+                                <li>Quieres explorar y entender datos</li>
+                                <li>Buscas patrones ocultos</li>
+                            </ul>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🎮</div>
+                            <h4>Usa Por Refuerzo cuando:</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>Puedes interactuar con el entorno</li>
+                                <li>Quieres optimizar decisiones secuenciales</li>
+                                <li>Tienes objetivos a largo plazo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comparison-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="comparison-modal-title">
+                <div class="modal-dialog">
+                    <button class="modal-close" type="button" aria-label="Cerrar" onclick="closeComparisonModal()">×</button>
+                    <h3 id="comparison-modal-title">Tabla Comparativa de Tipos de Aprendizaje</h3>
+                    <p style="margin: 10px 0 20px; color: #34495e;">
+                        Revisa las diferencias clave entre aprendizaje supervisado, no supervisado y por refuerzo.
+                    </p>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aspecto</th>
+                                    <th>🏷️ Supervisado</th>
+                                    <th>🔍 No Supervisado</th>
+                                    <th>🎮 Por Refuerzo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Tipo de Datos</strong></td>
+                                    <td>Etiquetados (con respuestas)</td>
+                                    <td>Sin etiquetas (sin respuestas)</td>
+                                    <td>Interacción prueba-error con entorno</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Objetivo Principal</strong></td>
+                                    <td>Predecir</td>
+                                    <td>Encontrar patrones</td>
+                                    <td>Obtener recompensa máxima</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Proceso de Aprendizaje</strong></td>
+                                    <td>Ejemplos → Reglas → Predicciones</td>
+                                    <td>Datos → Análisis → Patrones ocultos</td>
+                                    <td>Acción → Recompensa → Mejora estrategia</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Evaluación</strong></td>
+                                    <td>Comparar con respuestas reales</td>
+                                    <td>Interpretación humana</td>
+                                    <td>Recompensas acumuladas</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Analogía</strong></td>
+                                    <td>Estudiar con respuestas</td>
+                                    <td>Detective sin pistas</td>
+                                    <td>Aprender un juego</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ejemplos Típicos</strong></td>
+                                    <td>Spam filter, Reconocimiento facial</td>
+                                    <td>Segmentación clientes, Clustering</td>
+                                    <td>Juegos, Robótica, Trading</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dificultad Principal</strong></td>
+                                    <td>Necesita datos etiquetados</td>
+                                    <td>Difícil evaluar calidad</td>
+                                    <td>Exploración vs. explotación</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Retroalimentación</strong></td>
+                                    <td>Inmediata y precisa</td>
+                                    <td>No hay retroalimentación directa</td>
+                                    <td>Retardada e indirecta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <div id="examples" class="content-section">
+                <div class="section-header">
+                    <h2>💡 Ejemplos Prácticos por Concepto</h2>
+                    <p>Aplicaciones reales de cada tecnología de IA</p>
+                </div>
+
+                <div class="card">
+                    <h3>🤖 Inteligencia Artificial General</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>🗣️ Asistentes de Voz</h5>
+                            <p>Siri, Alexa, Google Assistant comprenden comandos hablados y responden inteligentemente</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🎮 NPCs en Videojuegos</h5>
+                            <p>Personajes que reaccionan de forma realista a las acciones del jugador</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🏠 Casas Inteligentes</h5>
+                            <p>Sistemas que aprenden rutinas y optimizan temperatura, iluminación automáticamente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🧠 Machine Learning</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>📧 Filtros de Spam</h5>
+                            <p>Gmail aprende de miles de emails para clasificar spam automáticamente</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🛒 Sistemas de Recomendación</h5>
+                            <p>Netflix y Spotify sugieren contenido basándose en tu historial</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>💳 Detección de Fraude</h5>
+                            <p>Bancos identifican transacciones sospechosas en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🧬 Deep Learning</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>👤 Reconocimiento Facial</h5>
+                            <p>Facebook identifica personas en fotos procesando millones de imágenes</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🚗 Vehículos Autónomos</h5>
+                            <p>Tesla y Waymo procesan video en tiempo real para navegación autónoma</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🩺 Diagnóstico Médico</h5>
+                            <p>Análisis de rayos X y resonancias con precisión superior a humanos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🎨 IA Generativa y LLMs</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>💬 ChatGPT</h5>
+                            <p>Conversaciones naturales, escritura creativa, resolución de problemas</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🖼️ DALL-E / Midjourney</h5>
+                            <p>Generación de imágenes artísticas desde descripciones de texto</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>🎵 IA Musical</h5>
+                            <p>AIVA y Amper crean composiciones musicales originales automáticamente</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>💻 GitHub Copilot</h5>
+                            <p>Asistente de programación que genera código contextual</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>🎯 Identificador de Ejemplos</h3>
+                    <p>¿Puedes clasificar estos ejemplos en el tipo correcto de IA?</p>
+                    <button class="demo-button" onclick="startExampleQuiz()">Comenzar Quiz</button>
+                    <div id="example-quiz" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Resources Section -->
+            <div id="resources" class="content-section">
+                <div class="section-header">
+                    <h2>📖 Recursos Adicionales para Implementación</h2>
+                    <p>Herramientas y tecnologías para llevar los conceptos a la práctica</p>
+                </div>
+
+                <div class="card">
+                    <h3>🏷️ Aprendizaje Supervisado - Herramientas</h3>
+                    <div class="code-example">
+# Python + Scikit-Learn (Principiantes)
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# PyTorch (Avanzado)
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# TensorFlow/Keras (Intermedio)
+import tensorflow as tf
+from tensorflow import keras
+                    </div>
+                    <p><strong>Datasets recomendados:</strong> Iris, Titanic, MNIST, CIFAR-10</p>
+                    <p><strong>Plataformas:</strong> Kaggle, Google Colab, Jupyter Notebooks</p>
+                </div>
+
+                <div class="card">
+                    <h3>🔍 Aprendizaje No Supervisado - Herramientas</h3>
+                    <div class="code-example">
+# Clustering con Scikit-Learn
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.decomposition import PCA
+
+# Visualización
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Ejemplo básico de clustering
+kmeans = KMeans(n_clusters=3)
+clusters = kmeans.fit_predict(datos_sin_etiquetas)
+                    </div>
+                    <p><strong>Técnicas clave:</strong> K-Means, DBSCAN, PCA, t-SNE</p>
+                    <p><strong>Aplicaciones:</strong> Análisis exploratorio, reducción dimensional</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎮 Aprendizaje por Refuerzo - Herramientas</h3>
+                    <div class="code-example">
+# Stable Baselines3 (Recomendado para empezar)
+from stable_baselines3 import PPO, DQN, A2C
+import gym
+
+# OpenAI Gym (Entornos estándar)
+env = gym.make('CartPole-v1')
+
+# Ray RLlib (Para proyectos avanzados)
+import ray
+from ray import tune
+                    </div>
+                    <p><strong>Entornos populares:</strong> CartPole, Atari Games, MuJoCo</p>
+                    <p><strong>Algoritmos clave:</strong> Q-Learning, PPO, DQN, A3C</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎨 IA Generativa y LLMs - APIs y Herramientas</h3>
+                    <div class="code-example">
+# OpenAI API (ChatGPT, DALL-E)
+import openai
+openai.api_key = "tu_api_key"
+
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Hola"}]
+)
+
+# Hugging Face Transformers
+from transformers import pipeline
+generator = pipeline('text-generation', model='gpt2')
+
+# Para imágenes: Stable Diffusion, DALL-E API
+                    </div>
+                    <p><strong>APIs comerciales:</strong> OpenAI, Anthropic Claude, Google Bard</p>
+                    <p><strong>Modelos open source:</strong> Llama, GPT-2, T5, BLOOM</p>
+                </div>
+
+                <div class="card">
+                    <h3>🛠️ Currículo Práctico Sugerido</h3>
+                    <div class="learning-grid">
+                        <div class="learning-card">
+                            <div class="icon">📚</div>
+                            <h4>Nivel Principiante</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>Python básico + NumPy/Pandas</li>
+                                <li>Scikit-Learn para ML supervisado</li>
+                                <li>Visualización con Matplotlib</li>
+                                <li>Datasets simples (Iris, Boston Housing)</li>
+                            </ul>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🔬</div>
+                            <h4>Nivel Intermedio</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>TensorFlow/Keras para Deep Learning</li>
+                                <li>OpenAI Gym para Reinforcement Learning</li>
+                                <li>Hugging Face para NLP</li>
+                                <li>Proyectos de visión computacional</li>
+                            </ul>
+                        </div>
+                        <div class="learning-card">
+                            <div class="icon">🚀</div>
+                            <h4>Nivel Avanzado</h4>
+                            <ul style="text-align: left; margin: 10px 0 0 20px;">
+                                <li>PyTorch para investigación</li>
+                                <li>MLOps con MLflow/Kubeflow</li>
+                                <li>Despliegue con Docker/Kubernetes</li>
+                                <li>Fine-tuning de LLMs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🌐 Recursos de Aprendizaje Online</h3>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5>📚 Cursos Fundamentales</h5>
+                            <p><strong>Coursera:</strong> Machine Learning (Andrew Ng)<br>
+                               <strong>edX:</strong> MIT Introduction to ML<br>
+                               <strong>Fast.ai:</strong> Practical Deep Learning</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>💻 Plataformas de Práctica</h5>
+                            <p><strong>Kaggle:</strong> Competencias y datasets<br>
+                               <strong>Google Colab:</strong> Notebooks gratuitos<br>
+                               <strong>Papers with Code:</strong> Implementaciones</p>
+                        </div>
+                        <div class="example-card">
+                            <h5>📖 Documentación Esencial</h5>
+                            <p><strong>Scikit-learn:</strong> scikit-learn.org<br>
+                               <strong>PyTorch:</strong> pytorch.org<br>
+                               <strong>Hugging Face:</strong> huggingface.co</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Global variables for interactive features
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let reinforcementStep = 0;
+        const comparisonModal = document.getElementById('comparison-modal');
+        
+        // Show/Hide sections
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked menu item
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        function openComparisonModal() {
+            if (comparisonModal) {
+                comparisonModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeComparisonModal() {
+            if (comparisonModal) {
+                comparisonModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Random concept generator
+        function showRandomConcept() {
+            const concepts = [
+                {
+                    title: "🤖 Inteligencia Artificial",
+                    description: "Campo amplio que crea máquinas con comportamiento inteligente humano",
+                    example: "Asistentes de voz como Siri y Alexa"
+                },
+                {
+                    title: "🧠 Machine Learning",
+                    description: "Algoritmos que aprenden patrones de datos sin programación explícita",
+                    example: "Filtros de spam que mejoran con cada email"
+                },
+                {
+                    title: "🧬 Deep Learning",
+                    description: "Redes neuronales multicapa - ML con superpoderes",
+                    example: "Reconocimiento facial en millones de fotos"
+                },
+                {
+                    title: "🎨 IA Generativa",
+                    description: "IA que crea contenido original en lugar de solo analizar",
+                    example: "ChatGPT generando texto, DALL-E creando imágenes"
+                }
+            ];
+            
+            const randomConcept = concepts[Math.floor(Math.random() * concepts.length)];
+            const demoContent = document.getElementById('demo-content');
+            
+            demoContent.innerHTML = `
+                <div style="text-align: left; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                    <h4>${randomConcept.title}</h4>
+                    <p><strong>Definición:</strong> ${randomConcept.description}</p>
+                    <p><strong>Ejemplo:</strong> ${randomConcept.example}</p>
+                </div>
+            `;
+            demoContent.classList.add('fade-in');
+        }
+
+        // Simple quiz functionality
+        function startQuiz() {
+            const questions = [
+                {
+                    question: "¿Cuál es la analogía usada para explicar la jerarquía IA → ML → DL?",
+                    options: ["Cajas chinas", "Matryoshkas rusas", "Pirámides", "Círculos concéntricos"],
+                    correct: 1
+                },
+                {
+                    question: "¿Qué tipo de datos usa el aprendizaje supervisado?",
+                    options: ["Sin etiquetas", "Etiquetados", "Interactivos", "Aleatorios"],
+                    correct: 1
+                },
+                {
+                    question: "¿Cuál es el objetivo del aprendizaje no supervisado?",
+                    options: ["Predecir", "Encontrar patrones", "Obtener recompensas", "Clasificar"],
+                    correct: 1
+                }
+            ];
+            
+            currentQuizIndex = 0;
+            quizScore = 0;
+            showQuizQuestion(questions);
+        }
+
+        function showQuizQuestion(questions) {
+            if (currentQuizIndex >= questions.length) {
+                document.getElementById('demo-content').innerHTML = `
+                    <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4>¡Quiz Completado!</h4>
+                        <p>Puntuación: ${quizScore}/${questions.length}</p>
+                        <p>${quizScore === questions.length ? '¡Perfecto! 🎉' : '¡Sigue practicando! 📚'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const question = questions[currentQuizIndex];
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                optionsHTML += `<button class="demo-button" onclick="checkAnswer(${index}, ${question.correct}, [${questions.map(q => `{question:'${q.question}',options:['${q.options.join("','")}'],correct:${q.correct}}`).join(',')}])" style="display: block; margin: 5px 0; width: 100%;">${option}</button>`;
+            });
+            
+            document.getElementById('demo-content').innerHTML = `
+                <div style="text-align: left; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
+                    <h4>Pregunta ${currentQuizIndex + 1}:</h4>
+                    <p>${question.question}</p>
+                    ${optionsHTML}
+                </div>
+            `;
+        }
+
+        function checkAnswer(selected, correct, questions) {
+            if (selected === correct) {
+                quizScore++;
+                document.getElementById('demo-content').innerHTML += '<p style="color: #2ecc71; font-weight: bold;">¡Correcto! ✅</p>';
+            } else {
+                document.getElementById('demo-content').innerHTML += '<p style="color: #e74c3c; font-weight: bold;">Incorrecto ❌</p>';
+            }
+            
+            currentQuizIndex++;
+            setTimeout(() => showQuizQuestion(questions), 1500);
+        }
+
+        // Learning process demonstration
+        function showLearningProcess(type) {
+            const processes = {
+                supervised: {
+                    title: "🏷️ Proceso de Aprendizaje Supervisado",
+                    steps: [
+                        "1. 📥 Recopilar datos etiquetados (fotos de gatos marcadas como 'GATO')",
+                        "2. 🧠 Entrenar algoritmo con ejemplos conocidos",
+                        "3. 🎯 Modelo aprende patrones que distinguen gatos",
+                        "4. 📤 Predecir en nuevas imágenes sin etiquetar",
+                        "5. ✅ Evaluar precisión comparando con respuestas reales"
+                    ]
+                },
+                unsupervised: {
+                    title: "🔍 Proceso de Aprendizaje No Supervisado",
+                    steps: [
+                        "1. 📊 Analizar datos sin etiquetas (comportamiento de clientes)",
+                        "2. 🔎 Buscar patrones y similitudes ocultas",
+                        "3. 📈 Agrupar datos similares automáticamente",
+                        "4. 🏷️ Identificar segmentos naturales ('Compradores frecuentes', 'Ocasionales')",
+                        "5. 💡 Interpretar y validar grupos encontrados"
+                    ]
+                },
+                reinforcement: {
+                    title: "🎮 Proceso de Aprendizaje por Refuerzo",
+                    steps: [
+                        "1. 🌍 Observar estado del entorno (posición en tablero)",
+                        "2. ⚡ Ejecutar acción (mover pieza de ajedrez)",
+                        "3. 🏆 Recibir recompensa/castigo (ganar/perder puntos)",
+                        "4. 🧠 Actualizar estrategia basada en resultado",
+                        "5. 🔄 Repetir ciclo mejorando decisiones"
+                    ]
+                }
+            };
+            
+            const process = processes[type];
+            let stepsHTML = process.steps.map(step => `<li style="margin: 8px 0; line-height: 1.6;">${step}</li>`).join('');
+            
+            document.getElementById('learning-process').innerHTML = `
+                <div style="text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                    <h4>${process.title}</h4>
+                    <ol style="margin: 15px 0 0 20px;">${stepsHTML}</ol>
+                </div>
+            `;
+        }
+
+        // Reinforcement learning simulation
+        function simulateReinforcement() {
+            const scenarios = [
+                {
+                    scenario: "🎯 Agente en posición inicial del laberinto",
+                    action: "➡️ Se mueve hacia la derecha",
+                    reward: "+5 puntos - Se acerca al objetivo",
+                    learning: "💡 Aprende: moverse a la derecha es bueno"
+                },
+                {
+                    scenario: "🧱 Agente encuentra una pared",
+                    action: "⬆️ Intenta moverse hacia arriba",
+                    reward: "-10 puntos - Choca con pared",
+                    learning: "💡 Aprende: evitar esa dirección en esa posición"
+                },
+                {
+                    scenario: "🏆 Agente cerca del objetivo",
+                    action: "🎯 Se mueve hacia la meta",
+                    reward: "+100 puntos - ¡Objetivo alcanzado!",
+                    learning: "💡 Aprende: esa secuencia de movimientos es óptima"
+                }
+            ];
+            
+            const scenario = scenarios[reinforcementStep % scenarios.length];
+            
+            document.getElementById('reinforcement-demo').innerHTML = `
+                <div style="text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                    <h4>Simulación Paso ${reinforcementStep + 1}</h4>
+                    <p><strong>🌍 Escenario:</strong> ${scenario.scenario}</p>
+                    <p><strong>⚡ Acción:</strong> ${scenario.action}</p>
+                    <p><strong>🏆 Recompensa:</strong> ${scenario.reward}</p>
+                    <p><strong>📚 Aprendizaje:</strong> ${scenario.learning}</p>
+                </div>
+            `;
+            
+            reinforcementStep++;
+        }
+
+        // Example classification quiz
+        function startExampleQuiz() {
+            const examples = [
+                { text: "Netflix recomendando películas basándose en tu historial", answer: "Machine Learning", type: "ml" },
+                { text: "ChatGPT escribiendo un poema original", answer: "IA Generativa", type: "generative" },
+                { text: "AlphaGo aprendiendo a jugar Go contra sí mismo", answer: "Aprendizaje por Refuerzo", type: "reinforcement" },
+                { text: "Google Fotos reconociendo caras en millones de imágenes", answer: "Deep Learning", type: "dl" }
+            ];
+            
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            
+            document.getElementById('example-quiz').innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                    <h4>🤔 Clasifica este ejemplo:</h4>
+                    <p style="font-size: 1.1em; margin: 15px 0;"><em>"${randomExample.text}"</em></p>
+                    <p><strong>Respuesta:</strong> ${randomExample.answer}</p>
+                    <p><strong>Explicación:</strong> ${getExplanation(randomExample.type)}</p>
+                </div>
+            `;
+        }
+
+        function getExplanation(type) {
+            const explanations = {
+                ml: "Utiliza algoritmos que aprenden patrones de datos de comportamiento para hacer predicciones.",
+                generative: "Crea contenido completamente nuevo (texto, imágenes) en lugar de solo analizar datos existentes.",
+                reinforcement: "Aprende a través de prueba y error, recibiendo recompensas por buenas decisiones.",
+                dl: "Usa redes neuronales profundas para procesar grandes cantidades de datos visuales complejos."
+            };
+            return explanations[type];
+        }
+
+        // Video section simulation
+        function simulateVideoSection(section) {
+            const sections = {
+                intro: {
+                    time: "00:00 - 00:57",
+                    content: "Introducción y presentación de objetivos del curso sobre clasificación de IA"
+                },
+                hierarchy: {
+                    time: "00:58 - 02:34", 
+                    content: "Explicación de la jerarquía IA → ML → DL usando la analogía de Matryoshkas"
+                },
+                generative: {
+                    time: "02:35 - 04:03",
+                    content: "Introducción a IA Generativa y LLMs con ChatGPT como ejemplo principal"
+                },
+                learning: {
+                    time: "04:04 - 07:00",
+                    content: "Detalle de los 3 tipos de aprendizaje automático con ejemplos y comparaciones"
+                }
+            };
+            
+            const sectionData = sections[section];
+            document.getElementById('video-simulation').innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                    <h4>📺 Sección Actual: ${sectionData.time}</h4>
+                    <p>${sectionData.content}</p>
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                        <small>💡 En el video real, aquí verías las explicaciones visuales y ejemplos correspondientes</small>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show home section by default
+            showSection('home');
+
+            if (comparisonModal) {
+                comparisonModal.addEventListener('click', function(event) {
+                    if (event.target === comparisonModal) {
+                        closeComparisonModal();
+                    }
+                });
+            }
+            
+            // Add smooth scrolling for mobile
+            if (window.innerWidth <= 768) {
+                document.body.style.overflowX = 'hidden';
+            }
+            
+            // Auto-close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('sidebar');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(event.target) && 
+                    !menuBtn.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeComparisonModal();
+            }
+        });
+    </script>
+</body>
+</html>

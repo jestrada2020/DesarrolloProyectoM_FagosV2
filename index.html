@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Fagos UCES y UdeA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Proyecto Fagos</h1>
+                <p>Plataforma - ML UCES &amp; UdeA</p>
+            </div>
+
+            <button class="menu-item active" data-section="home" onclick="showSection('home')">
+                <span>🏠</span> Inicio
+            </button>
+            <button class="menu-item" data-section="jerarquia" onclick="showSection('jerarquia')">
+                <span>🪆</span> Jerarquía IA - ML - DL
+            </button>
+            <button class="menu-item" data-section="context" onclick="showSection('context')">
+                <span>🌎</span> Contexto Estratégico
+            </button>
+            <button class="menu-item" data-section="metodologia" onclick="showSection('metodologia')">
+                <span>🧪</span> Metodología
+            </button>
+            <button class="menu-item" data-section="laboratorio" onclick="showSection('laboratorio')">
+                <span>🔬</span> Laboratorio &amp; Aplicación ML
+            </button>
+            <button class="menu-item" data-section="resultados" onclick="showSection('resultados')">
+                <span>📊</span> Resultados Esperados
+            </button>
+            <button class="menu-item" data-section="equipo" onclick="showSection('equipo')">
+                <span>🤝</span> Equipo de trabajo
+            </button>
+            <button class="menu-item" data-section="recursos" onclick="showSection('recursos')">
+                <span>📚</span> Recursos y Alianzas
+            </button>
+        </nav>
+
+        <main class="main-content">
+            <section id="home" class="content-section active">
+                <header class="section-header">
+                    <h2>Proyecto Fagos UCES y UdeA</h2>
+                    <p>Búsqueda - ML de bacteriófagos para la salud pública y la bioinnovación.</p>
+                </header>
+
+                <article class="card">
+                    <h3>🎯 Propósito General</h3>
+                    <p>Desarrollar una plataforma de búsqueda - ML colaborativa capaz de identificar, caracterizar y monitorear bacteriófagos de interés clínico en ecosistemas compartidos entre UCES y UdeA.</p>
+                </article>
+
+                <div class="grid-2">
+                    <article class="card fact-box">
+                        <h3>💡 Dato del proyecto</h3>
+                        <p id="fact-content"></p>
+                    </article>
+
+                    <article class="card">
+                        <h3>📌 Objetivos Clave</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;"></ul>
+                    </article>
+                </div>
+            </section>
+
+            <section id="jerarquia" class="content-section">
+                <header class="section-header">
+                    <h2>Jerarquía de la IA - ML - DL</h2>
+                    <p>Explora el curso interactivo completo basado en la clasificación de la Inteligencia Artificial.</p>
+                </header>
+
+                <article class="card">
+                    <h3>💡 Contenido temático:</h3>
+                    <p>
+                        A continuación se integra el módulo original de referencia con todos sus apartados, recursos didácticos e interacciones.
+                        Puedes recorrerlo dentro de la aplicación manteniendo el esquema de navegación lateral de Proyecto Fagos.
+                    </p>
+                    <div class="hierarchy-iframe-wrapper">
+                        <iframe id="hierarchy-iframe" src="appF2.html" title="Jerarquía IA - ML - DL"></iframe>
+                    </div>
+                </article>
+            </section>
+
+            <section id="context" class="content-section">
+                <header class="section-header">
+                    <h2>🌎 Contexto Estratégico</h2>
+                    <p>La resistencia antimicrobiana exige soluciones colaborativas basadas en vigilancia temprana y terapias innovadoras.</p>
+                </header>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>🦠 Salud Pública</h3>
+                        <p></p>
+                    </article>
+                    <article class="card">
+                        <h3>🌱 Ecosistemas Compartidos</h3>
+                        <p></p>
+                    </article>
+                    <article class="card">
+                        <h3>🔗 Cooperación Binacional</h3>
+                        <p></p>
+                    </article>
+                </div>
+
+                <article class="card">
+                    <h3>📈 Enfoque Integral</h3>
+                    <div class="grid-auto">
+                        <div class="card" style="border-left-color: #0083b0;">
+                            <h4>Vigilancia Ambiental</h4>
+                            <p></p>
+                        </div>
+                        <div class="card" style="border-left-color: #c33764;">
+                            <h4>Investigación Traslacional</h4>
+                            <p></p>
+                        </div>
+                        <div class="card" style="border-left-color: #4cd3c2;">
+                            <h4>Modelado Predictivo</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section id="metodologia" class="content-section">
+                <header class="section-header">
+                    <h2>🧪 Metodología del Proyecto</h2>
+                    <p>Un ciclo iterativo que conecta campo, laboratorio, análisis de datos y transferencia tecnológica.</p>
+                </header>
+
+                <article class="card">
+                    <h3>🔁 Flujo Operativo</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-card">
+                                <div class="timestamp">Fase 1</div>
+                                <h4>Planificación del Muestreo</h4>
+                                <p>Selección de sitios, matrices y diseño de réplicas coordinadas entre equipos locales.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-card">
+                                <div class="timestamp">Fase 2</div>
+                                <h4>Aislamiento y Cultivo</h4>
+                                <p>Enriquecimiento bacteriano, cuantificación de fagos y validación de pureza.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-card">
+                                <div class="timestamp">Fase 3</div>
+                                <h4>Secuenciación y Análisis</h4>
+                                <p>Metagenómica shotgun, anotación funcional y clasificación taxonómica.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-card">
+                                <div class="timestamp">Fase 4</div>
+                                <h4>Transferencia &amp; Difusión</h4>
+                                <p>Protocolos abiertos, tableros en línea y talleres técnicos para actores sanitarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>🧭 Protocolos Guiados</h3>
+                    <div class="grid-3">
+                        <button class="card" style="text-align: left; border-left-color: #0083b0;" onclick="loadProtocol('muestreo')">
+                            <h4>Ruta de Muestreo</h4>
+                            <p>Planificación, calibración y control de calidad en campo.</p>
+                        </button>
+                        <button class="card" style="text-align: left; border-left-color: #4cd3c2;" onclick="loadProtocol('laboratorio')">
+                            <h4>Laboratorio</h4>
+                            <p>Aislamiento, purificación y cuantificación de fagos.</p>
+                        </button>
+                        <button class="card" style="text-align: left; border-left-color: #c33764;" onclick="loadProtocol('analisis')">
+                            <h4>Análisis Computacional</h4>
+                            <p>Pipelines reproducibles y anotación automatizada.</p>
+                        </button>
+                    </div>
+                    <div class="card" style="margin-top: 20px; border-left-color: #24243e;">
+                        <h4>Detalle seleccionado</h4>
+                        <p id="protocol-content"></p>
+                    </div>
+                </article>
+            </section>
+
+            <section id="laboratorio" class="content-section">
+                <header class="section-header">
+                    <h2>🔬 Laboratorio &amp; Aplicación ML</h2>
+                    <p>Infraestructura compartida para caracterizar fagos con rigor y reproducibilidad.</p>
+                </header>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <h3>🏛️ Plataforma de Bacterias vs Fagos - ML</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;"></ul>
+                    </article>
+
+                    <article class="card">
+                        <h3>💻 Núcleo Bioinformático</h3>
+                        <p></p>
+                        <div class="pill"></div>
+                        <div class="pill"></div>
+                        <div class="pill"></div>
+                        <div class="pill"></div>
+                    </article>
+                </div>
+
+                <article class="card">
+                    <h3>🔒 Gobernanza de Datos</h3>
+                    <div class="grid-auto">
+                        <div class="card" style="border-left-color: #0f0c29;">
+                            <h4>Seguridad &amp; Ética</h4>
+                                <p></p>
+                        </div>
+                        <div class="card" style="border-left-color: #4cd3c2;">
+                            <h4>Datos Abiertos</h4>
+                                <p></p>
+                        </div>
+                        <div class="card" style="border-left-color: #0083b0;">
+                            <h4>Interoperabilidad</h4>
+                                <p></p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section id="resultados" class="content-section">
+                <header class="section-header">
+                    <h2>📊 Resultados Esperados</h2>
+                    <p>Metas medibles que respaldan la viabilidad y el impacto del proyecto en salud pública.</p>
+                </header>
+
+                <div class="grid-3">
+                    <button class="card" style="text-align: left; border-left-color: #4cd3c2;" onclick="highlightResult('viabilidad')">
+                        <h3>✅ Validación Técnica</h3>
+                    </button>
+                    <button class="card" style="text-align: left; border-left-color: #0083b0;" onclick="highlightResult('impacto')">
+                        <h3>🌍 Impacto Social</h3>
+                    </button>
+                    <button class="card" style="text-align: left; border-left-color: #c33764;" onclick="highlightResult('seguimiento')">
+                        <h3>📡 Seguimiento Continuo</h3>
+                    </button>
+                </div>
+
+                <article class="card" style="margin-top: 20px; border-left-color: #24243e;">
+                    <h3>🔍 Detalle en foco</h3>
+                    <p id="result-highlight"></p>
+                </article>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <article class="card">
+                        <h3>📑 Indicadores Clave</h3>
+                        <ul style="margin-left: 20px; line-height: 1.8;"></ul>
+                    </article>
+                    <article class="card">
+                        <h3>🤖 Innovación Aplicada</h3>
+                        <p></p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="equipo" class="content-section">
+                <header class="section-header">
+                    <h2>🤝 Equipo de trabajo</h2>
+                    <p>Una red interdisciplinaria con liderazgo compartido entre UCES y UdeA.</p>
+                </header>
+
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>Dr. Ronald Guillermo Peláez Sánchez</h3>
+                        <p>Director científico, especialista en fagoterapia clínica, UCES.</p>
+                        <div class="badge">Microbiología</div>
+                    </article>
+                    <article class="card">
+                        <h3>Dra. Alexandra Cuartas</h3>
+                        <p>Codirectora UdeA, cientifica especialista en fagoterapia clínica.</p>
+                        <div class="badge">Microbiología</div>
+                    </article>
+                    <article class="card">
+                        <h3>MSc. John Jairo Estrada Álvarez</h3>
+                        <p>Asistente técnico en ML.</p>
+                        <div class="badge">Matemático UdeA</div>
+                        <div class="badge">Matemáticas aplicadas en Automatización y Control EAFIT</div>
+                    </article>
+                    <article class="card">
+                        <h3>Estudiante Investigadora</h3>
+                        <p>Valentina Rueda Paniagua.</p>
+                        <div class="badge">Bióloga</div>
+                        <div class="badge">Estudiante práctica</div>
+                        <div class="badge">Universidad CES</div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="recursos" class="content-section">
+                <header class="section-header">
+                    <h2>📚 Recursos y Alianzas</h2>
+                    <p>Conectando conocimiento, financiamiento y transferencia tecnológica.</p>
+                </header>
+
+                <div class="grid-2">
+                    <article class="resource-card">
+                        <h4>Repositorio de Protocolos</h4>
+                        <p>Documentación técnica, checklists y datasets anonimizados para laboratorios asociados.</p>
+                        <a href="#">Acceder al repositorio</a>
+                    </article>
+                    <article class="resource-card" style="background: linear-gradient(135deg, rgba(12, 52, 131, 0.92), rgba(58, 96, 115, 0.92));">
+                        <h4>Financiamiento</h4>
+                        <p>Becas binacionales, cooperación internacional y coinversión con instituciones de salud.</p>
+                        <a href="#">Ver convocatorias activas</a>
+                    </article>
+                </div>
+
+                <article class="card" style="margin-top: 24px;">
+                    <h3>📬 Contacto y Próximos Pasos</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Convocatoria abierta para laboratorios asociados hasta Q4.</li>
+                        <li>Agenda de workshops técnicos trimestrales en formato híbrido.</li>
+                        <li>Integración con observatorios de salud pública y consorcios farmacéuticos.</li>
+                    </ul>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
