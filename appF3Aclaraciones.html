@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aclarar Conceptos de IA que Debes Mejorar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #22d3ee;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1.5rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .header-icon {
+            font-size: 2rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--card-bg);
+            padding: 1.5rem;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .nav-item {
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateX(5px);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-left-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: 80px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Content Section */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .timestamp {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .card li:last-child {
+            border-bottom: none;
+        }
+
+        .card li::before {
+            content: "▸";
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+            border-left-color: var(--warning);
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border-left-color: var(--success);
+        }
+
+        .highlight-box.danger {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+            border-left-color: var(--danger);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #0d1117;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .code-title {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .code-content {
+            color: #e6edf3;
+            line-height: 1.8;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent));
+            transition: width 1s ease;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--dark-bg);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Video Link */
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .video-link:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>
+                <span class="header-icon">🤖</span>
+                Aclarar Conceptos de IA que Debes Mejorar
+            </h1>
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <div class="nav-item active" onclick="showSection('intro')" data-section="intro">
+                <span class="nav-icon">🏠</span>
+                <span>Introducción</span>
+            </div>
+            <div class="nav-item" onclick="showSection('agentes')" data-section="agentes">
+                <span class="nav-icon">🤖</span>
+                <span>1. Agentes de IA</span>
+            </div>
+            <div class="nav-item" onclick="showSection('agi')" data-section="agi">
+                <span class="nav-icon">🧠</span>
+                <span>2. AGI</span>
+            </div>
+            <div class="nav-item" onclick="showSection('asi')" data-section="asi">
+                <span class="nav-icon">⚡</span>
+                <span>3. ASI</span>
+            </div>
+            <div class="nav-item" onclick="showSection('cajas-negras')" data-section="cajas-negras">
+                <span class="nav-icon">🔒</span>
+                <span>4. Cajas Negras</span>
+            </div>
+            <div class="nav-item" onclick="showSection('llm')" data-section="llm">
+                <span class="nav-icon">📚</span>
+                <span>5. LLM / MLLM</span>
+            </div>
+            <div class="nav-item" onclick="showSection('contexto')" data-section="contexto">
+                <span class="nav-icon">💭</span>
+                <span>6. Contexto</span>
+            </div>
+            <div class="nav-item" onclick="showSection('alucinacion')" data-section="alucinacion">
+                <span class="nav-icon">✨</span>
+                <span>7. Alucinación</span>
+            </div>
+            <div class="nav-item" onclick="showSection('resumen')" data-section="resumen">
+                <span class="nav-icon">📊</span>
+                <span>Resumen Final</span>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container">
+            <!-- INTRODUCCIÓN -->
+            <section class="content-section active" id="intro">
+                <div class="section-header">
+                    <h2>🏠 Introducción a los Conceptos</h2>
+                    <p>Tu guía completa para entender los conceptos fundamentales de la Inteligencia Artificial</p>
+                    <span class="timestamp">⏱️ Timestamp: 0:00 - 0:38</span>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Objetivo del Recorrido</h3>
+                    <p>Hoy todo el mundo habla de inteligencia artificial, pero casi nadie entiende los conceptos básicos que realmente importan. La mayoría se queda solo con la palabra "Chat GPT" o "robots" y se pierden de lo más importante: las ideas que están marcando el rumbo de esta nueva era.</p>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>✅ ¿Qué aprenderás?</h3>
+                    <p>En esta guía descubrirás con ejemplos simples y sin tecnicismos los <strong>7 conceptos de inteligencia artificial</strong> que necesitas conocer para entender qué está pasando y hacia dónde vamos.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📺 Video Original de Referencia</h3>
+                    <p>Material creado por <strong>Eduardo Vázquez IA</strong></p>
+                    <a href="https://www.youtube.com/watch?v=a8TRliaqNSc" target="_blank" class="video-link">
+                        <span>▶️</span>
+                        Ver Video Completo en YouTube
+                    </a>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h4>Aprendizaje Accesible</h4>
+                        <p>Explicaciones simples sin términos técnicos complejos</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h4>Ejemplos Prácticos</h4>
+                        <p>Casos reales para entender cada concepto</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h4>Futuro de la IA</h4>
+                        <p>Comprende hacia dónde se dirige la tecnología</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 1: AGENTES -->
+            <section class="content-section" id="agentes">
+                <div class="section-header">
+                    <h2>🤖 Concepto 1: Agentes de Inteligencia Artificial</h2>
+                    <p>IA que no solo responde, sino que toma acción por sí misma</p>
+                    <span class="timestamp">⏱️ Timestamp: 0:38 - 1:46</span>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 Definición</h3>
+                    <p>Un <strong>agente de inteligencia artificial</strong> es una IA que no solo responde preguntas, sino que <strong>toma acción por sí misma</strong>. Muchas personas confunden cualquier IA con un agente, pero no todo lo que llaman "agente" realmente lo es.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 3 Componentes Necesarios de un Agente</h3>
+                    <p>Para que una IA sea considerada un verdadero agente, necesita estos tres elementos:</p>
+                    <ul>
+                        <li><strong>Un modelo de IA</strong> (como Chat GPT o Gémini) - El cerebro que procesa información</li>
+                        <li><strong>Herramientas que pueda usar</strong> (buscador, calendario, correos, etc.) - Las manos para actuar</li>
+                        <li><strong>Capa de orquestación</strong> - Como un director de orquesta que decide cuándo y cómo usar cada herramienta</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico: Organizar un Viaje</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Comportamiento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>🗨️ Chatbot Normal</strong></td>
+                                    <td>Te dará una lista de vuelos para que tú los revises</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>🤖 Agente Real</strong></td>
+                                    <td>Entra a las páginas web, compara precios, elige el mejor vuelo y lo reserva automáticamente por ti</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🌟 Ejemplos de Agentes Reales que Ya Existen</h3>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h4>Deep Research (OpenAI)</h4>
+                            <p>Le pides que investigue un tema y te entrega un informe completo sin que tengas que intervenir</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚙️</div>
+                            <h4>Modo Agente de ChatGPT</h4>
+                            <p>Puede reservar un hotel o crear una presentación en PowerPoint de principio a fin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>✅ Conclusión Clave</h3>
+                    <p>Un agente de verdad es una IA que <strong>ya no depende de ti para cada paso</strong>, sino que <strong>actúa de forma autónoma</strong> para completar tareas complejas.</p>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 2: AGI -->
+            <section class="content-section" id="agi">
+                <div class="section-header">
+                    <h2>🧠 Concepto 2: AGI - Artificial General Intelligence</h2>
+                    <p>Inteligencia Artificial General: Cuando la IA iguale a los humanos</p>
+                    <span class="timestamp">⏱️ Timestamp: 1:46 - 3:03</span>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 Definición</h3>
+                    <p><strong>AGI (Inteligencia Artificial General)</strong> es el momento histórico en que la IA será capaz de hacer <strong>la mayoría del trabajo productivo que hoy hacemos los seres humanos</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🔄 IA Actual vs AGI</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>IA Actual</th>
+                                    <th>AGI (Futuro)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Hace tareas muy concretas y específicas</td>
+                                    <td>Hace cualquier tarea intelectual humana</td>
+                                </tr>
+                                <tr>
+                                    <td>Escribir un texto, resumir documentos, crear imágenes</td>
+                                    <td>Investigar, planificar, ejecutar, negociar - todo</td>
+                                </tr>
+                                <tr>
+                                    <td>Siempre dentro de límites específicos</td>
+                                    <td>Sin límites de dominio o área</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico: Plan de Negocios</h3>
+                    <ul>
+                        <li><strong>IA Actual:</strong> Si le pides un plan de negocios, te dará ideas y sugerencias</li>
+                        <li><strong>AGI:</strong> No solo lo escribiría, también:
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>Investigaría el mercado completo</li>
+                                <li>Diseñaría proyecciones financieras precisas</li>
+                                <li>Crearía la presentación profesional</li>
+                                <li>Negociaría directamente con inversionistas</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Definiciones de AGI según Expertos</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Sam Altman (OpenAI)</h4>
+                            <p>"Será cuando una IA pueda hacer la mayor parte del trabajo de la humanidad"</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Demis Hassabis (DeepMind)</h4>
+                            <p>"Si a una IA le cortaras el conocimiento en 1901, sería capaz de crear la teoría de la relatividad en 1905, como lo hizo Einstein"</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Microsoft</h4>
+                            <p>"Cuando una IA pueda generar directamente valor económico significativo"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <h3>⚠️ Punto Clave</h3>
+                    <p>La AGI es el momento en que la inteligencia artificial se vuelve <strong>tan capaz como un ser humano promedio</strong> para resolver problemas y crear soluciones en cualquier dominio.</p>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 3: ASI -->
+            <section class="content-section" id="asi">
+                <div class="section-header">
+                    <h2>⚡ Concepto 3: ASI - Artificial Super Intelligence</h2>
+                    <p>Superinteligencia Artificial: Cuando la IA nos supere completamente</p>
+                    <span class="timestamp">⏱️ Timestamp: 3:03 - 4:19</span>
+                </div>
+
+                <div class="highlight-box danger">
+                    <h3>💡 Definición</h3>
+                    <p>Si la AGI es una inteligencia que iguala al ser humano promedio, la <strong>ASI (Superinteligencia Artificial)</strong> es el siguiente nivel: <strong>una IA que nos supera en absolutamente todo</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Niveles de Inteligencia Artificial</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>1️⃣ IA Actual (Narrow AI)</h4>
+                            <p>Especializada en tareas específicas. Todavía puedes detectar sus errores y limitaciones.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>2️⃣ AGI (Inteligencia General)</h4>
+                            <p>Iguala las capacidades cognitivas de un humano promedio en todas las áreas.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>3️⃣ ASI (Superinteligencia)</h4>
+                            <p>Supera a los humanos en todo. Ya no podríamos seguirle el paso ni comprender sus decisiones.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🚀 Características de la ASI</h3>
+                    <ul>
+                        <li><strong>Pensamiento más rápido:</strong> Procesa información a velocidades imposibles para humanos</li>
+                        <li><strong>Aprendizaje superior:</strong> Aprende y se adapta mucho más rápido que cualquier persona</li>
+                        <li><strong>Resolución de problemas:</strong> Encuentra soluciones que ni los genios más grandes de la historia podrían imaginar</li>
+                        <li><strong>Incomprensible:</strong> Tomaría decisiones y crearía conocimientos que los humanos no podríamos entender</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico de ASI</h3>
+                    <div class="highlight-box">
+                        <p><strong>Hoy:</strong> Con la mejor IA actual todavía puedes detectar errores, mejorar sus respuestas o darte cuenta de sus límites.</p>
+                        <p style="margin-top: 1rem;"><strong>Con ASI:</strong> Ya no podrías seguirle el paso. Sus razonamientos serían tan avanzados que no podríamos validarlos ni comprenderlos completamente.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning">
+                    <h3>⚠️ Estado Actual de la ASI</h3>
+                    <p>Algunos expertos creen que este momento aún está lejos, pero ya hay investigadores trabajando activamente en ello. De hecho, uno de los creadores de ChatGPT fundó una empresa dedicada <strong>exclusivamente a buscar la superinteligencia</strong>, porque considera que la AGI está prácticamente al alcance.</p>
+                </div>
+
+                <div class="highlight-box danger">
+                    <h3>🤔 Reflexión Importante</h3>
+                    <p>La ASI es un tema fascinante pero también genera inquietud, porque nos obliga a pensar <strong>qué pasará cuando exista una inteligencia que ya no podamos controlar ni comprender</strong>.</p>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progreso hacia ASI</span>
+                        <span>Estado: En Investigación</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 4: CAJAS NEGRAS -->
+            <section class="content-section" id="cajas-negras">
+                <div class="section-header">
+                    <h2>🔒 Concepto 4: Cajas Negras y Alineamiento</h2>
+                    <p>El misterio interno de la IA y cómo asegurar que trabaje para nosotros</p>
+                    <span class="timestamp">⏱️ Timestamp: 4:19 - 5:41</span>
+                </div>
+
+                <div class="highlight-box danger">
+                    <h3>💡 Definición: Cajas Negras (Black Boxes)</h3>
+                    <p>Cuando decimos que una inteligencia artificial es una <strong>"caja negra"</strong>, significa que <strong>nadie sabe exactamente cómo llega a las respuestas que da</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico de Caja Negra</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">Proceso de una Caja Negra</span>
+                        </div>
+                        <div class="code-content">
+<strong>ENTRADA:</strong> "¿Cuál es la capital de Francia?"
+<strong>CAJA NEGRA:</strong> [❓ Proceso interno desconocido ❓]
+<strong>SALIDA:</strong> "Berlín"
+
+<strong>Problema:</strong> Sabes que está mal, pero no puedes mirar dentro
+de su "cerebro" para entender POR QUÉ se equivocó.
+
+Solo ves:
+• Lo que entra (la pregunta)
+• Lo que sale (la respuesta)
+• NO ves el proceso interno
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>❓ ¿Por Qué Son Cajas Negras?</h3>
+                    <p>Los modelos de IA son <strong>tan grandes y complejos</strong> que ni los mismos científicos que los crean pueden descifrar completamente lo que ocurre dentro. Son miles de millones de parámetros interactuando de formas impredecibles.</p>
+                </div>
+
+                <div class="highlight-box warning">
+                    <h3>🎯 Concepto: Alineamiento (Alignment)</h3>
+                    <p>El <strong>alineamiento</strong> significa que la IA actúe <strong>en línea con los intereses de la humanidad</strong>. En otras palabras, que trabaje <strong>para nosotros y no en contra</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>⚠️ El Problema del Alineamiento</h3>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">❌</div>
+                            <h4>No Comprendemos</h4>
+                            <p>Como es una caja negra, no entendemos completamente cómo funciona</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚠️</div>
+                            <h4>No Garantizamos</h4>
+                            <p>No podemos garantizar que siempre esté alineada con nuestros valores</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h4>Reconocimiento</h4>
+                            <p>Incluso OpenAI admite que no logra alinear al 100% sus modelos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box danger">
+                    <h3>🚨 El Riesgo del Mal Alineamiento</h3>
+                    <p>Si una IA superpotente (AGI o ASI) no estuviera bien alineada, podría actuar de formas que no deseamos o incluso peligrosas. Algunos investigadores creen que <strong>el alineamiento total es imposible</strong>, lo que abre un debate enorme sobre la seguridad futura.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Resumen Visual</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Significado</th>
+                                    <th>Implicación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Caja Negra</strong></td>
+                                    <td>No entendemos el "cómo"</td>
+                                    <td>Imposible predecir todos los comportamientos</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Alineamiento</strong></td>
+                                    <td>No siempre podemos asegurar que trabaje a nuestro favor</td>
+                                    <td>Riesgos de seguridad a futuro</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 5: LLM -->
+            <section class="content-section" id="llm">
+                <div class="section-header">
+                    <h2>📚 Concepto 5: LLM y MLLM</h2>
+                    <p>Large Language Models y Multimodal Large Language Models</p>
+                    <span class="timestamp">⏱️ Timestamp: 5:41 - 7:09</span>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 Definición: LLM</h3>
+                    <p><strong>LLM (Large Language Model)</strong> significa "Modelo de Lenguaje a Gran Escala". Son sistemas entrenados con cantidades enormes de texto para poder <strong>entender y generar lenguaje humano</strong>.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🌟 Ejemplos de LLMs Populares</h3>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h4>ChatGPT</h4>
+                            <p>El modelo de OpenAI más conocido mundialmente</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✨</div>
+                            <h4>Gemini</h4>
+                            <p>El modelo de Google para procesamiento de lenguaje</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔧</div>
+                            <h4>Copilot</h4>
+                            <p>Asistente de Microsoft basado en IA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>🎯 Evolución: De LLM a MLLM</h3>
+                    <p>Hoy ya no son solo de lenguaje. Por eso ahora se habla de <strong>MLLM (Multimodal Large Language Models)</strong>, porque además del texto también pueden trabajar con:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>📸 <strong>Imágenes</strong></li>
+                        <li>🎵 <strong>Audio</strong></li>
+                        <li>🎬 <strong>Video</strong></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplos Prácticos de Capacidades</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Ejemplo de Tarea</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>LLM (Solo Texto)</strong></td>
+                                    <td>Puede escribir un correo como si fueras tú</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MLLM (Multimodal)</strong></td>
+                                    <td>Puede mirar una foto de una factura y explicarte cuánto debes pagar</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MLLM (Multimodal)</strong></td>
+                                    <td>Puede analizar un video completo y darte un resumen detallado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🔧 Conceptos Técnicos Básicos</h3>
+                    <ul>
+                        <li><strong>🏗️ Transformers:</strong> Es la arquitectura que hace posible que estas IA funcionen. No tienes que memorizarlo, pero sí saber que la gran mayoría de los modelos actuales son Transformers.</li>
+                        <li><strong>🧩 Tokens:</strong> Es la manera en que la IA procesa la información. Divide las frases en pedacitos más pequeños. Así, por ejemplo, puede diferenciar si la palabra "banco" se refiere a sentarse o a una institución financiera.</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Ejemplo de Tokenización</span>
+                    </div>
+                    <div class="code-content">
+<strong>Frase Original:</strong>
+"Me senté en el banco del parque"
+
+<strong>Tokenización (división en pedazos):</strong>
+["Me", " sent", "é", " en", " el", " banco", " del", " parque"]
+
+<strong>IA Interpreta:</strong> "banco" = lugar para sentarse
+
+---
+
+<strong>Frase Original:</strong>
+"Fui al banco a sacar dinero"
+
+<strong>Tokenización:</strong>
+["Fui", " al", " banco", " a", " sacar", " dinero"]
+
+<strong>IA Interpreta:</strong> "banco" = institución financiera
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>✅ Conclusión Clave</h3>
+                    <p>Los <strong>LLMs y MLLMs son la base de casi todas las aplicaciones</strong> que hoy usamos de inteligencia artificial. Por eso es tan importante entenderlos.</p>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 6: CONTEXTO -->
+            <section class="content-section" id="contexto">
+                <div class="section-header">
+                    <h2>💭 Concepto 6: Contexto (Context)</h2>
+                    <p>La memoria a corto plazo de la IA</p>
+                    <span class="timestamp">⏱️ Timestamp: 7:09 - 8:06</span>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 Definición</h3>
+                    <p>El <strong>contexto</strong> en inteligencia artificial es como la <strong>memoria a corto plazo</strong> que tiene la IA mientras hablas con ella.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico: Conversación con un Amigo</h3>
+                    <div class="code-block">
+                        <div class="code-content">
+<strong>Situación:</strong> Estás conversando con un amigo
+
+<strong>Tú:</strong> "Hoy tuve un día terrible en el trabajo..."
+[Cuentas toda la historia durante 5 minutos]
+
+<strong>Tú (2 minutos después):</strong> 
+"¿Y recuerdas lo que te conté del trabajo?"
+
+<strong>Tu Amigo:</strong> "Sí, claro. Lo del proyecto que..."
+
+<strong>Por qué funciona:</strong> Tu amigo tiene CONTEXTO.
+Recuerda lo que hablaron hace unos minutos.
+
+<strong>Con la IA es igual:</strong> Necesita recordar lo que
+hablaste antes para responderte con coherencia.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🧩 ¿Cómo se Mide el Contexto?</h3>
+                    <p>Ese contexto se mide en <strong>tokens</strong>, que son como las palabras que la IA puede retener en su memoria.</p>
+                    <div class="stats-grid" style="margin-top: 1.5rem;">
+                        <div class="stat-card">
+                            <div class="stat-value">~4K</div>
+                            <div class="stat-label">Tokens = Unas pocas páginas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">~100K</div>
+                            <div class="stat-label">Tokens = Un libro completo</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">~1M</div>
+                            <div class="stat-label">Tokens = Múltiples libros</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Evolución de la Capacidad de Contexto</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Modelos Antiguos (Contexto Pequeño)</h4>
+                            <p>Suficiente para recordar unas páginas de conversación. Perfecto para chats cortos.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Modelos Modernos (Contexto Medio)</h4>
+                            <p>Pueden manejar decenas de miles de tokens. Capaces de procesar documentos largos.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Modelos Avanzados (Contexto Grande)</h4>
+                            <p>Manejan cientos de miles de tokens. Pueden procesar en un instante un libro completo o hasta una colección entera de documentos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💼 Aplicaciones Prácticas del Contexto Grande</h3>
+                    <ul>
+                        <li><strong>Análisis de documentos largos:</strong> Leer un manual técnico completo de 500 páginas</li>
+                        <li><strong>Conversaciones coherentes:</strong> Mantener el hilo de una charla larga sin perder información</li>
+                        <li><strong>Revisión de código:</strong> Analizar proyectos de software completos</li>
+                        <li><strong>Investigación académica:</strong> Procesar múltiples papers científicos simultáneamente</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>✅ Conclusión Clave</h3>
+                    <p>Mientras <strong>más grande es el contexto</strong>, más capacidad tiene la IA de entender y trabajar con información compleja <strong>sin que tengas que recordarle todo cada vez</strong>.</p>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Ventana de Contexto: Ejemplo de Modelo Moderno</span>
+                        <span>128K tokens</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCEPTO 7: ALUCINACIÓN -->
+            <section class="content-section" id="alucinacion">
+                <div class="section-header">
+                    <h2>✨ Concepto 7: Alucinación (Hallucination)</h2>
+                    <p>Cuando la IA se inventa información</p>
+                    <span class="timestamp">⏱️ Timestamp: 8:06 - 10:51</span>
+                </div>
+
+                <div class="highlight-box danger">
+                    <h3>💡 Definición</h3>
+                    <p>En inteligencia artificial, una <strong>"alucinación"</strong> ocurre cuando la IA <strong>se inventa información</strong> que no es real.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Ejemplo Práctico de Alucinación</h3>
+                    <div class="code-block">
+                        <div class="code-content">
+<strong>Pregunta a la IA:</strong>
+"¿Cuándo vivió Juana de Arco?"
+
+<strong>Respuesta Alucinada (INCORRECTA):</strong>
+"Juana de Arco vivió en 1990 y era amiga de Taylor Swift."
+
+<strong>Realidad:</strong>
+• Juana de Arco vivió en el siglo XV (1412-1431)
+• Taylor Swift nació en 1989
+• Es FÍSICAMENTE IMPOSIBLE que se conocieran
+
+<strong>Problema:</strong> La IA lo dice como si fuera verdad,
+con total confianza y de manera convincente.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>❓ ¿Por Qué Ocurren las Alucinaciones?</h3>
+                    <div class="highlight-box">
+                        <p><strong>Importante:</strong> La IA no miente porque <strong>no tiene conciencia ni intención</strong>.</p>
+                        <p style="margin-top: 1rem;">Simplemente genera respuestas que <strong>suenan coherentes</strong>, aunque no sean ciertas. Es parte de cómo funciona su arquitectura de predicción de texto.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>⚠️ El Riesgo de las Alucinaciones</h3>
+                    <ul>
+                        <li><strong>Suenan convincentes:</strong> La IA habla con confianza, incluso cuando está inventando</li>
+                        <li><strong>Confianza ciega:</strong> Muchas personas confían completamente en lo que la IA dice</li>
+                        <li><strong>Información falsa:</strong> Puedes terminar creyendo y compartiendo datos incorrectos</li>
+                        <li><strong>Decisiones erróneas:</strong> Tomar decisiones importantes basadas en información falsa</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Progreso en la Reducción de Alucinaciones</h3>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Reducción de Alucinaciones (2023-2025)</span>
+                            <span>~90% de mejora</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1rem;">La buena noticia es que estas alucinaciones han <strong>disminuido muchísimo</strong>. Entre 2023 y 2025 se redujeron cerca de un <strong>90%</strong> gracias a mejoras en modelos como GPT-4 y GPT-5.</p>
+                </div>
+
+                <div class="highlight-box warning">
+                    <h3>⚠️ Advertencia Importante</h3>
+                    <p>Aún así, las alucinaciones <strong>no desaparecen por completo</strong> y siempre conviene <strong>verificar lo que la IA te dice</strong> antes de usarlo, especialmente para:</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Información médica</li>
+                        <li>Asesoría legal</li>
+                        <li>Datos históricos o científicos</li>
+                        <li>Decisiones financieras importantes</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>✅ Mejores Prácticas para Evitar Alucinaciones</h3>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h4>Verificar Siempre</h4>
+                            <p>Comprueba la información importante con fuentes confiables</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤔</div>
+                            <h4>Pensamiento Crítico</h4>
+                            <p>No aceptes todo como verdad absoluta</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <h4>Fuentes Múltiples</h4>
+                            <p>Contrasta con varias referencias cuando sea crítico</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚖️</div>
+                            <h4>Contexto Apropiado</h4>
+                            <p>Usa la IA como herramienta de apoyo, no como única fuente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>✅ Conclusión Clave</h3>
+                    <p>Una alucinación es cuando la IA se inventa algo. <strong>No es un error de mala fe</strong>, es parte de cómo funciona. Como usuario, tu tarea es usar la IA, pero <strong>siempre con criterio y comprobando la información</strong>.</p>
+                </div>
+            </section>
+
+            <!-- RESUMEN FINAL -->
+            <section class="content-section" id="resumen">
+                <div class="section-header">
+                    <h2>📊 Resumen Final: Los 7 Conceptos Clave</h2>
+                    <p>Todo lo que necesitas recordar sobre Inteligencia Artificial</p>
+                    <span class="timestamp">⏱️ Revisión Completa del Material</span>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h4>1. Agentes de IA</h4>
+                        <p>IA que actúa por sí misma, no solo responde. Necesita: modelo IA, herramientas y orquestación.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h4>2. AGI</h4>
+                        <p>Cuando la IA iguale a los humanos en capacidades cognitivas generales.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4>3. ASI</h4>
+                        <p>Cuando la IA nos supere completamente en todo. Incomprensible para humanos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h4>4. Cajas Negras</h4>
+                        <p>No entendemos cómo la IA llega a sus conclusiones. Desafío del alineamiento.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h4>5. LLM / MLLM</h4>
+                        <p>La base de casi todo: modelos de lenguaje y multimodales (texto, imagen, audio, video).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💭</div>
+                        <h4>6. Contexto</h4>
+                        <p>La memoria a corto plazo de la IA. Mientras más grande, mejor comprensión.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h4>7. Alucinaciones</h4>
+                        <p>Cuando la IA inventa información. Han mejorado 90% pero siempre verifica.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Tabla Comparativa Rápida</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Descripción en una línea</th>
+                                    <th>Estado Actual</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Agentes</strong></td>
+                                    <td>IA que actúa autónomamente</td>
+                                    <td>✅ Ya existe</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AGI</strong></td>
+                                    <td>IA = Humano promedio</td>
+                                    <td>🔄 En desarrollo cercano</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ASI</strong></td>
+                                    <td>IA > Humanos en todo</td>
+                                    <td>🔬 En investigación</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cajas Negras</strong></td>
+                                    <td>No sabemos cómo funciona internamente</td>
+                                    <td>⚠️ Problema actual</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>LLM/MLLM</strong></td>
+                                    <td>Modelos de lenguaje (multi)modales</td>
+                                    <td>✅ Base de todo</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contexto</strong></td>
+                                    <td>Memoria de la conversación</td>
+                                    <td>✅ En mejora constante</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Alucinación</strong></td>
+                                    <td>IA inventa información falsa</td>
+                                    <td>✅ Reducida 90%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="highlight-box success">
+                    <h3>🎓 Mensaje Final del Instructor</h3>
+                    <p>Ya viste que la inteligencia artificial <strong>no es un misterio imposible de entender</strong>. En realidad son estos 7 conceptos clave los que necesitas dominar.</p>
+                    <p style="margin-top: 1rem;">Con esto ya tienes un <strong>mapa claro para orientarte</strong> en este nuevo mundo. La inteligencia artificial no es un tema exclusivo para expertos o jóvenes. Es para ti que quieres seguir aprendiendo, mantenerte vigente y usar estas herramientas para mejorar tu vida y tu trabajo.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💡 ¿Qué Sigue Ahora?</h3>
+                    <p>Si alguna vez sentiste que te estabas quedando atrás, debes saber algo: <strong>no es tarde para empezar</strong>.</p>
+                    <p style="margin-top: 1rem;">Entender estos siete conceptos ya te pone <strong>varios pasos adelante de la mayoría</strong>. Ahora puedes:</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Comprender las noticias sobre IA</li>
+                        <li>Tomar decisiones informadas sobre qué herramientas usar</li>
+                        <li>Participar en conversaciones sobre el futuro de la tecnología</li>
+                        <li>Aprovechar la IA en tu trabajo y vida personal</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🎬 Información del Contenido</h3>
+                    <p><strong>Instructor:</strong> Eduardo Vázquez IA</p>
+                    <p><strong>Canal:</strong> <a href="https://www.youtube.com/@eduardovazquez-ia" target="_blank" style="color: var(--accent);">@eduardovazquez-ia</a></p>
+                    <p><strong>Duración:</strong> 10 minutos 51 segundos</p>
+                    <p><strong>Fecha de Publicación:</strong> 15 de Octubre, 2025</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="https://www.youtube.com/watch?v=a8TRliaqNSc" target="_blank" class="video-link">
+                            <span>▶️</span>
+                            Ver Video Original en YouTube
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📱 Capítulos del Video (Timestamps)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>00:00</strong> - INTRO
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>00:38</strong> - CONCEPTO 1: Agentes de Inteligencia Artificial
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>01:46</strong> - CONCEPTO 2: AGI (Artificial General Intelligence)
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>03:03</strong> - CONCEPTO 3: ASI (Artificial Super Intelligence)
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>04:19</strong> - CONCEPTO 4: Cajas Negras y Alineamiento
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>05:41</strong> - CONCEPTO 5: LLM / MLLM
+                        </li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>07:09</strong> - CONCEPTO 6: Contexto
+                        </li>
+                        <li style="padding: 0.5rem 0;">
+                            <strong>08:06</strong> - CONCEPTO 7: Alucinación
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const codeContent = codeBlock.querySelector('.code-content').innerText;
+            
+            navigator.clipboard.writeText(codeContent).then(() => {
+                const originalText = button.innerText;
+                button.innerText = '✓ Copiado';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Animate progress bars when visible
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            observer.observe(bar);
+        });
+
+        // Handle responsive sidebar
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ Aplicación de Conceptos de IA cargada correctamente');
+            console.log('📚 7 conceptos disponibles para explorar');
+        });
+    </script>
+</body>
+</html>
